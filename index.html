@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Invoice Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Online Invoice Generator</h1>
+        
+        <form id="invoiceForm">
+            <div class="section">
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" placeholder="Enter company name" required>
+            </div>
+
+            <div class="section">
+                <label for="clientName">Client Name:</label>
+                <input type="text" id="clientName" placeholder="Enter client name" required>
+            </div>
+
+            <div class="section">
+                <label for="productDetails">Product Details:</label>
+                <textarea id="productDetails" rows="5" placeholder="Enter product details" required></textarea>
+            </div>
+
+            <div class="section">
+                <label for="price">Price:</label>
+                <input type="number" id="price" placeholder="Enter price" required>
+            </div>
+
+            <div class="section">
+                <label for="logo">Upload Company Logo:</label>
+                <input type="file" id="logo" accept="image/*" required>
+            </div>
+
+            <div class="section">
+                <label for="productImage">Upload Product Image:</label>
+                <input type="file" id="productImage" accept="image/*" required>
+            </div>
+
+            <button type="button" onclick="generateInvoice()">Generate Invoice</button>
+        </form>
+
+        <div id="invoicePreview"></div>
+        <button id="downloadBtn" style="display:none;" onclick="downloadInvoice()">Download PDF</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
