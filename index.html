@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Invoice Generator</title>
+    <title>Advanced Online Invoice Generator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="title">Premium Online Invoice Generator</h1>
+        <h1 class="title">Advanced Online Invoice Generator</h1>
         
         <form id="invoiceForm">
             <div class="input-group">
@@ -20,26 +20,21 @@
                 <input type="text" id="clientName" placeholder="Client's Name" required>
             </div>
             <div class="input-group">
-                <label for="productName">Product Name</label>
-                <input type="text" id="productName" placeholder="Product Name" required>
+                <label for="clientAddress">Client Address</label>
+                <input type="text" id="clientAddress" placeholder="Client's Address" required>
             </div>
             <div class="input-group">
-                <label for="productQty">Quantity</label>
-                <input type="number" id="productQty" placeholder="Quantity" required>
+                <label for="clientPhone">Client Phone Number</label>
+                <input type="text" id="clientPhone" placeholder="Client's Phone Number" required>
             </div>
             <div class="input-group">
-                <label for="price">Price per Unit</label>
-                <input type="number" id="price" placeholder="Price per Unit" required>
-            </div>
-            <div class="input-group">
-                <label for="logo">Upload Company Logo</label>
-                <input type="file" id="logo" accept="image/*" required>
-            </div>
-            <div class="input-group">
-                <label for="productImage">Upload Product Image</label>
-                <input type="file" id="productImage" accept="image/*" required>
+                <label for="invoiceDate">Invoice Date</label>
+                <input type="date" id="invoiceDate" required>
             </div>
             
+            <div id="productList"></div>
+
+            <button type="button" class="add-product-btn" onclick="addProduct()">Add Product</button>
             <button type="button" class="generate-btn" onclick="generateInvoice()">Generate Invoice</button>
         </form>
 
