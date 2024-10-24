@@ -1,13 +1,14 @@
 function generateInvoice() {
     const companyName = document.getElementById("companyName").value;
     const clientName = document.getElementById("clientName").value;
-    const productDetails = document.getElementById("productDetails").value;
+    const productName = document.getElementById("productName").value;
+    const productQty = document.getElementById("productQty").value;
     const price = document.getElementById("price").value;
     const logoInput = document.getElementById("logo").files[0];
     const productImageInput = document.getElementById("productImage").files[0];
 
-    if (!companyName || !clientName || !productDetails || !price || !logoInput || !productImageInput) {
-        alert("Please fill out all fields and upload the required images.");
+    if (!companyName || !clientName || !productName || !productQty || !price || !logoInput || !productImageInput) {
+        alert("Please fill out all fields and upload required images.");
         return;
     }
 
@@ -20,20 +21,22 @@ function generateInvoice() {
         readerProduct.onload = function () {
             const productImageURL = readerProduct.result;
 
+            const totalPrice = productQty * price;
+
             const invoiceHTML = `
                 <div class="invoice">
                     <h2>${companyName}</h2>
                     <p><strong>Client:</strong> ${clientName}</p>
-                    <p><strong>Product Details:</strong></p>
-                    <p>${productDetails}</p>
-                    <p><strong>Price:</strong> $${price}</p>
+                    <p><strong>Product:</strong> ${productName} (x${productQty})</p>
+                    <p><strong>Total Price:</strong> $${totalPrice}</p>
                     <p><strong>Company Logo:</strong></p>
-                    <img src="${logoURL}" alt="Company Logo" width="100">
+                    <img src="${logoURL}" alt="Company Logo">
                     <p><strong>Product Image:</strong></p>
-                    <img src="${productImageURL}" alt="Product Image" width="200">
+                    <img src="${productImageURL}" alt="Product Image">
                 </div>
             `;
 
+            document.getElementById("invoicePreview").style.display = "block";
             document.getElementById("invoicePreview").innerHTML = invoiceHTML;
             document.getElementById("downloadBtn").style.display = "block";
         };
