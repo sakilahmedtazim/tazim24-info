@@ -40,7 +40,7 @@ h1.title {
     font-size: 1em;
 }
 
-button.generate-btn, button.download-btn {
+button.add-product-btn, button.generate-btn, button.download-btn {
     width: 100%;
     padding: 15px;
     background-color: #28a745;
@@ -53,7 +53,7 @@ button.generate-btn, button.download-btn {
     transition: background-color 0.3s ease;
 }
 
-button.generate-btn:hover, button.download-btn:hover {
+button.add-product-btn:hover, button.generate-btn:hover, button.download-btn:hover {
     background-color: #218838;
 }
 
@@ -76,23 +76,21 @@ button.generate-btn:hover, button.download-btn:hover {
     color: #1d4e89;
 }
 
-.invoice img {
-    margin-top: 10px;
-    max-width: 200px;
-    height: auto;
-    display: block;
+.product {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
 }
 
-/* Colorful Theme */
-body, .container, .input-group input {
-    background: linear-gradient(135deg, #f0f8ff, #add8e6);
+.remove-product-btn {
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 5px 10px;
 }
 
-button.generate-btn, button.download-btn {
-    background: linear-gradient(45deg, #6a11cb, #2575fc);
-}
-
-button.generate-btn:hover, button.download-btn:hover {
-    background: linear-gradient(45deg, #592cba, #195dd2);
+.remove-product-btn:hover {
+    background-color: #ff1a1a;
 }
