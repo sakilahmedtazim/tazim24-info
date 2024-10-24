@@ -1,50 +1,77 @@
+let productCount = 0;
+
+function addProduct() {
+    productCount++;
+
+    const productList = document.getElementById("productList");
+
+    const productDiv = document.createElement("div");
+    productDiv.classList.add("product");
+    productDiv.id = `product-${productCount}`;
+
+    productDiv.innerHTML = `
+        <div class="input-group">
+            <label for="productName-${productCount}">Product Name</label>
+            <input type="text" id="productName-${productCount}" placeholder="Product Name" required>
+        </div>
+        <div class="input-group">
+            <label for="productQty-${productCount}">Quantity</label>
+            <input type="number" id="productQty-${productCount}" placeholder="Quantity" required>
+        </div>
+        <div class="input-group">
+            <label for="price-${productCount}">Price per Unit</label>
+            <input type="number" id="price-${productCount}" placeholder="Price per Unit" required>
+        </div>
+        <button type="button" class="remove-product-btn" onclick="removeProduct(${productCount})">Remove</button>
+    `;
+
+    productList.appendChild(productDiv);
+}
+
+function removeProduct(productId) {
+    const productDiv = document.getElementById(`product-${productId}`);
+    productDiv.remove();
+}
+
 function generateInvoice() {
     const companyName = document.getElementById("companyName").value;
     const clientName = document.getElementById("clientName").value;
-    const productName = document.getElementById("productName").value;
-    const productQty = document.getElementById("productQty").value;
-    const price = document.getElementById("price").value;
-    const logoInput = document.getElementById("logo").files[0];
-    const productImageInput = document.getElementById("productImage").files[0];
+    const clientAddress = document.getElementById("clientAddress").value;
+    const clientPhone = document.getElementById("clientPhone").value;
+    const invoiceDate = document.getElementById("invoiceDate").value;
 
-    if (!companyName || !clientName || !productName || !productQty || !price || !logoInput || !productImageInput) {
-        alert("Please fill out all fields and upload required images.");
-        return;
-    }
+    const productElements = document.querySelectorAll(".product");
+    let totalPrice = 0;
+    let productsHTML = '';
 
-    const readerLogo = new FileReader();
-    const readerProduct = new FileReader();
+    productElements.forEach((productElement) => {
+        const productName = productElement.querySelector(`#productName-${productElement.id.split('-')[1]}`).value;
+        const productQty = productElement.querySelector(`#productQty-${productElement.id.split('-')[1]}`).value;
+        const productPrice = productElement.querySelector(`#price-${productElement.id.split('-')[1]}`).value;
 
-    readerLogo.onload = function () {
-        const logoURL = readerLogo.result;
+        const productTotal = productQty * productPrice;
+        totalPrice += productTotal;
 
-        readerProduct.onload = function () {
-            const productImageURL = readerProduct.result;
+        productsHTML += `
+            <p><strong>Product:</strong> ${productName} (x${productQty}) - $${productTotal}</p>
+        `;
+    });
 
-            const totalPrice = productQty * price;
+    const invoiceHTML = `
+        <div class="invoice">
+            <h2>${companyName}</h2>
+            <p><strong>Client Name:</strong> ${clientName}</p>
+            <p><strong>Client Address:</strong> ${clientAddress}</p>
+            <p><strong>Client Phone:</strong> ${clientPhone}</p>
+            <p><strong>Date:</strong> ${invoiceDate}</p>
+            ${productsHTML}
+            <p><strong>Total Price:</strong> $${totalPrice}</p>
+        </div>
+    `;
 
-            const invoiceHTML = `
-                <div class="invoice">
-                    <h2>${companyName}</h2>
-                    <p><strong>Client:</strong> ${clientName}</p>
-                    <p><strong>Product:</strong> ${productName} (x${productQty})</p>
-                    <p><strong>Total Price:</strong> $${totalPrice}</p>
-                    <p><strong>Company Logo:</strong></p>
-                    <img src="${logoURL}" alt="Company Logo">
-                    <p><strong>Product Image:</strong></p>
-                    <img src="${productImageURL}" alt="Product Image">
-                </div>
-            `;
-
-            document.getElementById("invoicePreview").style.display = "block";
-            document.getElementById("invoicePreview").innerHTML = invoiceHTML;
-            document.getElementById("downloadBtn").style.display = "block";
-        };
-
-        readerProduct.readAsDataURL(productImageInput);
-    };
-
-    readerLogo.readAsDataURL(logoInput);
+    document.getElementById("invoicePreview").style.display = "block";
+    document.getElementById("invoicePreview").innerHTML = invoiceHTML;
+    document.getElementById("downloadBtn").style.display = "block";
 }
 
 function downloadInvoice() {
